@@ -97,6 +97,7 @@ Assets/Plugins/**       linguist-vendored
 *.s3m                   lfs
 *.wav                   lfs
 *.xm                    lfs
+*.md                    lfs
 
 # Video
 *.asf                   lfs
