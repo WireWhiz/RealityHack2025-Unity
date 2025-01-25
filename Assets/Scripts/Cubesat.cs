@@ -50,6 +50,15 @@ public class Cubesat : MonoBehaviour
         public UnityEvent<string, bool> onDialogEnd;
     }
 
+    public Rigidbody rb;
+    public float thrusterForce;
+    public float deadzone = 0.1f;
+    public float angularDeadzone = 4f;
+    public float acceleration = 2;
+    public float angularAcceleration = 360;
+    public float maxSpeed = 3;
+    public float maxAngularSpeed = 360;
+    [Space]
     public AudioSource AudioSource;
     public TextMeshProUGUI text;
 
@@ -58,6 +67,7 @@ public class Cubesat : MonoBehaviour
 
     [Tooltip("Degrees per second to turn")]
     public float headTurnSpeed = 180;
+    public Transform currentPosTarget;
     public Transform currentLookTarget;
 
 
@@ -66,17 +76,56 @@ public class Cubesat : MonoBehaviour
 
     [Tooltip("All the dialog that cubsat can ever say, he has no free will")]
     public List<DialogPath> dialogPaths;
+
+    public Vector3 targetPos;
+    public Quaternion targetRot;
     public void Start()
     {
         waitingForConfirm = false;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
-        if (currentLookTarget != null)
+        if(currentPosTarget) 
+            targetPos = currentPosTarget.position;
+        if (currentLookTarget)
+            targetRot = Quaternion.LookRotation(currentLookTarget.position - transform.position);
+
+        rb.AddForce(CalcForceVec(targetPos, rb.position, rb.velocity, maxSpeed, acceleration, deadzone), ForceMode.Acceleration);
+        rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRot, maxAngularSpeed * Time.fixedDeltaTime));
+    }
+
+    Vector3 CalcForceVec(Vector3 targetPos, Vector3 currentPos, Vector3 currentVelocity, float maxSpeed, float maxAcceleration, float deadzone)
+    {
+        var componentForce = new Vector3
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(currentLookTarget.position - transform.position), headTurnSpeed * Time.deltaTime);
-        }
+            x = CalcForce(targetPos.x, currentPos.x, currentVelocity.x, maxSpeed, maxAcceleration, deadzone),
+            y = CalcForce(targetPos.y, currentPos.y, currentVelocity.y, maxSpeed, maxAcceleration, deadzone),
+            z = CalcForce(targetPos.z, currentPos.z, currentVelocity.z, maxSpeed, maxAcceleration, deadzone)
+        };
+
+        return Vector3.ClampMagnitude(componentForce, maxAcceleration);
+    }
+
+    float CalcForce(float targetPos, float currentPos, float currentVelocity, float maxSpeed, float maxAcceleration, float deadzone)
+    {
+        Debug.Log($"targetPos: {targetPos}, currentPos: {currentPos}, currentVelocity: {currentVelocity}, maxSpeed: {maxSpeed}, maxForce: {maxAcceleration}");
+        float posDelta = targetPos - currentPos;
+        float arriveTime = Mathf.Abs(posDelta) / Mathf.Abs(currentVelocity);
+        float accelerateTime = Mathf.Abs(currentVelocity) / maxAcceleration;
+
+        float perfectVelocity = Mathf.Sign(posDelta) * Mathf.Min(Mathf.Abs(posDelta) * maxSpeed, maxSpeed);
+        float etaDiff = arriveTime - (accelerateTime);
+        if (etaDiff < 0)
+            perfectVelocity *= 0.001f;
+
+
+        float velocityDelta = Mathf.Sign(perfectVelocity - currentVelocity);
+        float acceleration = Mathf.Sign(velocityDelta) * maxAcceleration * Mathf.Clamp01(Mathf.Abs(posDelta) / deadzone);
+
+        Debug.Log($"acc: {acceleration}, etaDiff: {etaDiff}, perfectVel: {perfectVelocity}, posDelta: {posDelta}, accelerationTime: {accelerateTime}, arriveTime: {arriveTime}");
+
+        return acceleration;
     }
 
     public void StartDialog(string pathName)
@@ -105,6 +154,7 @@ public class Cubesat : MonoBehaviour
     IEnumerator ExecuteDialogStep(DialogStep step)
     {
         currentLookTarget = step.lookTarget;
+        currentPosTarget = step.parkPos;
 
         // Start talking if not waiting on move
         float talkStart = Time.time;
@@ -125,27 +175,21 @@ public class Cubesat : MonoBehaviour
             do
             {
                 // Smooth damp later
-                if (step.lookTarget)
-                {
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(step.lookTarget.position - transform.position), headTurnSpeed * Time.deltaTime);
-                }
 
                 if (step.moveWhileTalking)
                 {
                     AnimateText(step.dialog, step.charactersPerSecond, Time.time - talkStart);
                 }
 
-                transform.position = Vector3.MoveTowards(transform.position, step.parkPos.transform.position, step.movespeed * Time.deltaTime);
-
                 yield return null;
             }
-            while (transform.position != step.parkPos.transform.position);
+            while ((transform.position - step.parkPos.transform.position).magnitude > 0.05f);
 
         }
 
         if (step.lookTarget != null)
         {
-            while (transform.rotation != Quaternion.LookRotation(step.lookTarget.position - transform.position))
+            while (Quaternion.Angle(transform.rotation,  Quaternion.LookRotation(step.lookTarget.position - transform.position)) > 2f)
             {
                 if (step.moveWhileTalking)
                 {
