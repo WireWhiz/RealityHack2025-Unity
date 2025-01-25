@@ -8,6 +8,7 @@ public class FloorDoorScript : MonoBehaviour
     public GameObject leftDoor;
     public GameObject rightDoor;
     public GameObject floor;
+    public GameObject rigConstraint;
     public float doorsMoveDistance;
     public float floorMoveDistance;    
     public float doorMoveTime;
