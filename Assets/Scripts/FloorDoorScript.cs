@@ -38,6 +38,11 @@ public class FloorDoorScript : MonoBehaviour
 
     IEnumerator OpenDoors()
     {
+        if (!floorAudioSource.isPlaying)
+        {
+            floorAudioSource.Play();
+        }
+
         if (!leftDoorAudioSource.isPlaying)
         {
             leftDoorAudioSource.Play();
@@ -82,11 +87,6 @@ public class FloorDoorScript : MonoBehaviour
 
     IEnumerator LiftFloor()
     {
-        if (!floorAudioSource.isPlaying)
-        {
-            floorAudioSource.Play();
-        }
-
         Vector3 floorTargetPosition = floor.transform.position + new Vector3(0, floorMoveDistance, 0);
         Vector3 floorStartPosition = floor.transform.position;
         float elapsedTime = 0f;
@@ -103,6 +103,11 @@ public class FloorDoorScript : MonoBehaviour
         if (floorAudioSource.isPlaying)
         {
             floorAudioSource.Stop();
+        }
+        
+        if (!leftDoorAudioSource.isPlaying)
+        {
+            leftDoorAudioSource.Play();
         }
     }
 }
