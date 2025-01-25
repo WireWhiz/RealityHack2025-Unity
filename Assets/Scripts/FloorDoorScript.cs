@@ -35,8 +35,8 @@ public class FloorDoorScript : MonoBehaviour
 
     IEnumerator OpenDoors()
     {
-        Vector3 leftDoorTargetPosition = leftDoor.transform.position + new Vector3(-doorsMoveDistance, 0, 0);
-        Vector3 rightDoorTargetPosition = rightDoor.transform.position + new Vector3(doorsMoveDistance, 0, 0);
+        Vector3 leftDoorTargetPosition = leftDoor.transform.position + new Vector3(doorsMoveDistance, 0, 0);
+        Vector3 rightDoorTargetPosition = rightDoor.transform.position + new Vector3(-doorsMoveDistance, 0, 0);
 
         Vector3 leftDoorStartPosition = leftDoor.transform.position;
         Vector3 rightDoorStartPosition = rightDoor.transform.position;
