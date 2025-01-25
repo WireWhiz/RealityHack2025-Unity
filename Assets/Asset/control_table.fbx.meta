@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: d57e951c420b6a84ebb0b9ac6a199fda
+guid: f53192ede3a4a4cd9b99b36ffa345aa9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Spaceship_Interior
-    second: {fileID: 2100000, guid: 0f1cd64545cdd2e48a5445a66fee9b3d, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
