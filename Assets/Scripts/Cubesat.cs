@@ -106,7 +106,7 @@ public class Cubesat : MonoBehaviour
 
         Debug.Log("Speed: " + speed);
 
-        if (speed > 0.1f)
+        if (speed > 0.4f)
         {
             if (!levitateIsPlaying)
             {
