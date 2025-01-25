@@ -1614,16 +1614,6 @@ PrefabInstance:
       objectReference: {fileID: 970248882}
     - target: {fileID: 3998613554664026205, guid: 96601917704e8384b9ebb54da6ee7ded,
         type: 3}
-      propertyPath: dialogPaths.Array.data[0].steps.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3998613554664026205, guid: 96601917704e8384b9ebb54da6ee7ded,
-        type: 3}
-      propertyPath: dialogPaths.Array.data[0].steps.Array.data[2].dialog
-      value: Now I'm talking while moving!
-      objectReference: {fileID: 0}
-    - target: {fileID: 3998613554664026205, guid: 96601917704e8384b9ebb54da6ee7ded,
-        type: 3}
       propertyPath: dialogPaths.Array.data[0].steps.Array.data[1].parkPos
       value: 
       objectReference: {fileID: 1956840842}
@@ -1632,11 +1622,6 @@ PrefabInstance:
       propertyPath: dialogPaths.Array.data[0].steps.Array.data[2].parkPos
       value: 
       objectReference: {fileID: 516245072}
-    - target: {fileID: 3998613554664026205, guid: 96601917704e8384b9ebb54da6ee7ded,
-        type: 3}
-      propertyPath: dialogPaths.Array.data[0].steps.Array.data[2].movespeed
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 3998613554664026205, guid: 96601917704e8384b9ebb54da6ee7ded,
         type: 3}
       propertyPath: dialogPaths.Array.data[0].steps.Array.data[0].lookTarget
@@ -1652,46 +1637,6 @@ PrefabInstance:
       propertyPath: dialogPaths.Array.data[0].steps.Array.data[2].lookTarget
       value: 
       objectReference: {fileID: 1902549620}
-    - target: {fileID: 3998613554664026205, guid: 96601917704e8384b9ebb54da6ee7ded,
-        type: 3}
-      propertyPath: dialogPaths.Array.data[0].steps.Array.data[0].waitForConfirm
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3998613554664026205, guid: 96601917704e8384b9ebb54da6ee7ded,
-        type: 3}
-      propertyPath: dialogPaths.Array.data[0].steps.Array.data[2].moveWhileTalking
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3998613554664026205, guid: 96601917704e8384b9ebb54da6ee7ded,
-        type: 3}
-      propertyPath: dialogPaths.Array.data[0].steps.Array.data[0].charactersPerSecond
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3998613554664026205, guid: 96601917704e8384b9ebb54da6ee7ded,
-        type: 3}
-      propertyPath: dialogPaths.Array.data[0].steps.Array.data[1].charactersPerSecond
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3998613554664026205, guid: 96601917704e8384b9ebb54da6ee7ded,
-        type: 3}
-      propertyPath: dialogPaths.Array.data[0].steps.Array.data[2].charactersPerSecond
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 9219798345280657334, guid: 96601917704e8384b9ebb54da6ee7ded,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9219798345280657334, guid: 96601917704e8384b9ebb54da6ee7ded,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9219798345280657334, guid: 96601917704e8384b9ebb54da6ee7ded,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
