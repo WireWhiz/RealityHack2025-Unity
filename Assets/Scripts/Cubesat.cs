@@ -140,7 +140,6 @@ public class Cubesat : MonoBehaviour
 
     float CalcForce(float targetPos, float currentPos, float currentVelocity, float maxSpeed, float maxAcceleration, float deadzone)
     {
-        Debug.Log($"targetPos: {targetPos}, currentPos: {currentPos}, currentVelocity: {currentVelocity}, maxSpeed: {maxSpeed}, maxForce: {maxAcceleration}");
         float posDelta = targetPos - currentPos;
         float arriveTime = Mathf.Abs(posDelta) / Mathf.Abs(currentVelocity);
         float accelerateTime = Mathf.Abs(currentVelocity) / maxAcceleration;
@@ -154,7 +153,6 @@ public class Cubesat : MonoBehaviour
         float velocityDelta = Mathf.Sign(perfectVelocity - currentVelocity);
         float acceleration = Mathf.Sign(velocityDelta) * maxAcceleration * Mathf.Clamp01(Mathf.Abs(posDelta) / deadzone);
 
-        Debug.Log($"acc: {acceleration}, etaDiff: {etaDiff}, perfectVel: {perfectVelocity}, posDelta: {posDelta}, accelerationTime: {accelerateTime}, arriveTime: {arriveTime}");
 
         return acceleration;
     }
