@@ -51,7 +51,6 @@ public class Cubesat : MonoBehaviour
     }
 
     public Rigidbody rb;
-    public float thrusterForce;
     public float deadzone = 0.1f;
     public float acceleration = 20;
     public float maxSpeed = 10;
@@ -75,7 +74,6 @@ public class Cubesat : MonoBehaviour
     // levitating sounds
     public AudioSource levitateSource;
     public AudioSource compressedAirSource;
-    public Rigidbody rigidBody;
     public float maxVolume = 1.0f;
     private bool levitateIsPlaying = false;
     
@@ -92,11 +90,19 @@ public class Cubesat : MonoBehaviour
     {
         waitingForConfirm = false;
     }
-    public void Update()
-    {
 
-        // levitate sounds
-        float speed = rigidBody.velocity.magnitude;
+    public void FixedUpdate()
+    {
+        if(currentPosTarget) 
+            targetPos = currentPosTarget.position;
+        if (currentLookTarget)
+            targetRot = Quaternion.LookRotation(currentLookTarget.position - transform.position);
+
+        rb.AddForce(CalcForceVec(targetPos, rb.position, rb.velocity, maxSpeed, acceleration, deadzone), ForceMode.Acceleration);
+        rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRot, maxAngularSpeed * Time.fixedDeltaTime));
+    
+    
+        float speed = rb.velocity.magnitude;
 
         Debug.Log("Speed: " + speed);
 
@@ -118,17 +124,6 @@ public class Cubesat : MonoBehaviour
                 levitateIsPlaying = false;
             }
         }
-    }
-
-    public void FixedUpdate()
-    {
-        if(currentPosTarget) 
-            targetPos = currentPosTarget.position;
-        if (currentLookTarget)
-            targetRot = Quaternion.LookRotation(currentLookTarget.position - transform.position);
-
-        rb.AddForce(CalcForceVec(targetPos, rb.position, rb.velocity, maxSpeed, acceleration, deadzone), ForceMode.Acceleration);
-        rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRot, maxAngularSpeed * Time.fixedDeltaTime));
     }
 
     Vector3 CalcForceVec(Vector3 targetPos, Vector3 currentPos, Vector3 currentVelocity, float maxSpeed, float maxAcceleration, float deadzone)
