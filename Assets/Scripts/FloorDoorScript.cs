@@ -16,6 +16,7 @@ public class FloorDoorScript : MonoBehaviour
     public AudioSource leftDoorAudioSource;
     public AudioSource rightDoorAudioSource;
     public AudioSource floorAudioSource;
+    public AudioSource wakeUpSource;
   
     // Start is called before the first frame update
     void Start()
@@ -104,10 +105,15 @@ public class FloorDoorScript : MonoBehaviour
         {
             floorAudioSource.Stop();
         }
-        
+
         if (!leftDoorAudioSource.isPlaying)
         {
             leftDoorAudioSource.Play();
+        }
+
+        if (!wakeUpSource.isPlaying)
+        {
+            wakeUpSource.Play();
         }
     }
 }
