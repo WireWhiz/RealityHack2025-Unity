@@ -53,10 +53,8 @@ public class Cubesat : MonoBehaviour
     public Rigidbody rb;
     public float thrusterForce;
     public float deadzone = 0.1f;
-    public float angularDeadzone = 4f;
-    public float acceleration = 2;
-    public float angularAcceleration = 360;
-    public float maxSpeed = 3;
+    public float acceleration = 20;
+    public float maxSpeed = 10;
     public float maxAngularSpeed = 360;
     [Space]
     public AudioSource AudioSource;
@@ -70,9 +68,17 @@ public class Cubesat : MonoBehaviour
     public Transform currentPosTarget;
     public Transform currentLookTarget;
 
+    // talking sounds
     public AudioClip[] talkingSamples;
-    private bool isPlaying = false;
+    private bool talkingIsPlaying = false;
 
+    // levitating sounds
+    public AudioSource levitateSource;
+    public AudioSource compressedAirSource;
+    public Rigidbody rigidBody;
+    public float maxVolume = 1.0f;
+    private bool levitateIsPlaying = false;
+    
 
     public bool waitingForConfirm;
     [Space]
@@ -85,6 +91,33 @@ public class Cubesat : MonoBehaviour
     public void Start()
     {
         waitingForConfirm = false;
+    }
+    public void Update()
+    {
+
+        // levitate sounds
+        float speed = rigidBody.velocity.magnitude;
+
+        Debug.Log("Speed: " + speed);
+
+        if (speed > 0.1f)
+        {
+            if (!levitateIsPlaying)
+            {
+                compressedAirSource.Play();
+                levitateIsPlaying = true;
+            }
+
+            compressedAirSource.volume = Mathf.Clamp(speed / maxSpeed, 0f, maxVolume);
+        }
+        else
+        {
+            if (levitateIsPlaying)
+            {
+                compressedAirSource.Pause();
+                levitateIsPlaying = false;
+            }
+        }
     }
 
     public void FixedUpdate()
@@ -219,7 +252,7 @@ public class Cubesat : MonoBehaviour
         {
             StartRandomPlayback();
         }
-        
+
         while (Time.time - talkStart - 1 < (step.dialog.Length / step.charactersPerSecond))
         {
             Debug.Log("Dialog length: " + (step.dialog.Length / step.charactersPerSecond));
@@ -271,16 +304,16 @@ public class Cubesat : MonoBehaviour
 
     public void StartRandomPlayback()
     {
-        if (!isPlaying)
+        if (!talkingIsPlaying)
         {
-            isPlaying = true;
+            talkingIsPlaying = true;
             StartCoroutine(PlayRandomClips());
         }
     }
 
     public void StopRandomPlayback()
     {
-        isPlaying = false;
+        talkingIsPlaying = false;
         if (AudioSource.isPlaying)
         {
             AudioSource.Stop();
@@ -289,7 +322,7 @@ public class Cubesat : MonoBehaviour
 
     private IEnumerator PlayRandomClips()
     {
-        while (isPlaying)
+        while (talkingIsPlaying)
         {
             if (talkingSamples.Length > 0)
             {
