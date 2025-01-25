@@ -11,6 +11,7 @@ public class PowerCell : MonoBehaviour
     PhysicalHandsManager physHandsManager;
 
     [SerializeField] bool broken = false;
+    public bool Broken { get { return broken; } }
 
     private void Awake()
     {

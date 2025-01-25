@@ -1,50 +1,81 @@
+using Leap;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PowerBox : MonoBehaviour
 {
-    [SerializeField] Joint socketA;
+    [SerializeField] Anchor socketA;
+    [SerializeField] Anchor socketB;
     PowerCell cellInSocketA;
-
-    [SerializeField] Joint socketB;
     PowerCell cellInSocketB;
+
+    private bool isPowered = false;
+    private bool isOpen = true;
 
     private void Awake()
     {
 
     }
 
-	// Start is called before the first frame update
-	void Start()
+    // Start is called before the first frame update
+    void Start()
     {
-        // get our starting cells
-        cellInSocketA = GetCellInSocket(true);
-        cellInSocketB = GetCellInSocket(false);
+        socketA.OnAnchorablesAttached += RefreshSocketA;
+        socketB.OnAnchorablesAttached += RefreshSocketB;
+
     }
 
-    PowerCell GetCellInSocket(bool socketType)
+    void RefreshSocketA()
     {
-        Joint jointToAcquire = (socketType) ? socketA :
-            socketB;
-
-        // get the powercell associated with any rigidbody on the joint
-        if(jointToAcquire && jointToAcquire.connectedBody)
+        if(socketA && socketA.hasAnchoredObjects)
         {
-            PowerCell candidateCell = jointToAcquire.connectedBody.GetComponent<PowerCell>();
-
-            if(candidateCell)
-            {
-                return candidateCell;
-            }
+            PowerCell candidateCell = socketA.anchoredObjects.First().GetComponent<PowerCell>();
+            if(candidateCell) cellInSocketA = candidateCell;
         }
+        else
+        {
+            cellInSocketA = null;
+        }
+    }
 
-        return null;
+    void RefreshSocketB()
+    {
+        if(socketB && socketB.hasAnchoredObjects)
+        {
+            PowerCell candidateCell = socketB.anchoredObjects.First().GetComponent<PowerCell>();
+            if(candidateCell) cellInSocketB = candidateCell;
+        }
+        else
+        {
+            cellInSocketB = null;
+        }
+    }
+
+    bool SocketState(bool checkA)
+    {
+        PowerCell cellToCheck = (checkA) ? cellInSocketA : cellInSocketB;
+
+        return cellToCheck != null && !cellToCheck.Broken;
+    }
+
+    bool GetPoweredState()
+    {
+        return SocketState(true) && SocketState(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        bool previousPowered = isPowered;
+        bool nowPowered = GetPoweredState();
+
+        if(nowPowered != previousPowered)
+        {
+            // dispatch any change events
+        }
+
+        isPowered = nowPowered;
     }
 }
