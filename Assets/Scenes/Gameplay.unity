@@ -2401,6 +2401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xrRig: {fileID: 700892506}
   floorDoorScript: {fileID: 595517364}
+  debugFloorActivate: 0
 --- !u!4 &468751600
 Transform:
   m_ObjectHideFlags: 0
@@ -34891,6 +34892,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2214156365536096667, guid: 8fd1dd84af6094296923c6361166c02b,
+        type: 3}
+      propertyPath: rigConstraint
+      value: 
+      objectReference: {fileID: 744940850}
     - target: {fileID: 6368061658671279548, guid: 8fd1dd84af6094296923c6361166c02b,
         type: 3}
       propertyPath: m_Name
@@ -34904,7 +34910,7 @@ PrefabInstance:
     - target: {fileID: 7448773416858854247, guid: 8fd1dd84af6094296923c6361166c02b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.08
+      value: 0.011
       objectReference: {fileID: 0}
     - target: {fileID: 7448773416858854247, guid: 8fd1dd84af6094296923c6361166c02b,
         type: 3}
