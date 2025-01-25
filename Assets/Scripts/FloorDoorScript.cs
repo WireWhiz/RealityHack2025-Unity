@@ -8,6 +8,7 @@ public class FloorDoorScript : MonoBehaviour
     public GameObject leftDoor;
     public GameObject rightDoor;
     public GameObject floor;
+    public GameObject rigConstraint;
     public float doorsMoveDistance;
     public float floorMoveDistance;    
     public float doorMoveTime;
@@ -17,12 +18,14 @@ public class FloorDoorScript : MonoBehaviour
     public AudioSource rightDoorAudioSource;
     public AudioSource floorAudioSource;
     public AudioSource wakeUpSource;
+    private bool isMoving = false;
+    public bool IsMoving { get { return isMoving; } }
   
     // Start is called before the first frame update
     void Start()
     {
         floor.transform.Translate(0, -floorMoveDistance, 0);
-        StartCoroutine(OpenDoorsAfterDelay());
+        //StartCoroutine(OpenDoorsAfterDelay());
     }
 
     // Update is called once per frame
@@ -34,6 +37,11 @@ public class FloorDoorScript : MonoBehaviour
     IEnumerator OpenDoorsAfterDelay()
     {
         yield return new WaitForSeconds(startDelay);
+        StartCoroutine(OpenDoors());
+    }
+
+    public void Open()
+    {
         StartCoroutine(OpenDoors());
     }
 
@@ -88,6 +96,7 @@ public class FloorDoorScript : MonoBehaviour
 
     IEnumerator LiftFloor()
     {
+        isMoving = true;
         Vector3 floorTargetPosition = floor.transform.position + new Vector3(0, floorMoveDistance, 0);
         Vector3 floorStartPosition = floor.transform.position;
         float elapsedTime = 0f;
@@ -115,5 +124,6 @@ public class FloorDoorScript : MonoBehaviour
         {
             wakeUpSource.Play();
         }
+        isMoving = false;
     }
 }
