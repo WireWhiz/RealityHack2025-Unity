@@ -3,7 +3,12 @@ guid: 31c204d7e4fe09449861fd1aacd644b8
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Polished_Texture
+    second: {fileID: 2100000, guid: b61c2560b52904e75a3c9cbaa0460d85, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
