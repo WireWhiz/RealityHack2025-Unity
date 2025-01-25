@@ -77,7 +77,8 @@ MonoBehaviour:
   dialogPaths:
   - pathName: path one
     steps:
-    - dialog: Hello, I'm allive!
+    - dialog: 'Hello, I''m allive! Hello, I''m allive! Hello, I''m allive! Hello,
+        I''m allive! Hello, I''m allive! Hello, I''m allive! Hello, I''m allive! '
       parkPos: {fileID: 0}
       lookTarget: {fileID: 0}
       moveWhileTalking: 0

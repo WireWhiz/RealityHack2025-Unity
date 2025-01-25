@@ -104,8 +104,6 @@ public class Cubesat : MonoBehaviour
     
         float speed = rb.velocity.magnitude;
 
-        Debug.Log("Speed: " + speed);
-
         if (speed > 0.4f)
         {
             if (!levitateIsPlaying)
@@ -169,7 +167,6 @@ public class Cubesat : MonoBehaviour
 
         foreach (var path in dialogPaths)
         {
-            Debug.Log(path.pathName + " == " + pathName);
             if (path.pathName == pathName)
             {
                 currentDialogPathRoutine = StartCoroutine(ExecuteDialogPath(path));
@@ -239,7 +236,6 @@ public class Cubesat : MonoBehaviour
             }
             step.onDialogBegin?.Invoke();
         }
-        Debug.Log(Time.time - talkStart);
       
         if (!step.voiceline)
         {
@@ -248,7 +244,6 @@ public class Cubesat : MonoBehaviour
 
         while (Time.time - talkStart - 1 < (step.dialog.Length / step.charactersPerSecond))
         {
-            Debug.Log("Dialog length: " + (step.dialog.Length / step.charactersPerSecond));
             AnimateText(step.dialog, step.charactersPerSecond, Time.time - talkStart);
             yield return null;
         }
@@ -291,7 +286,6 @@ public class Cubesat : MonoBehaviour
 
     void AnimateText(string dialog, float charactersPerSecond, float currentTime)
     {
-        Debug.Log("printing chars" + currentTime * charactersPerSecond + " dialog time: " + (currentTime / charactersPerSecond));
         text.text = dialog.Substring(0, (int)Mathf.Min( (currentTime * charactersPerSecond), dialog.Length));
     }
 
