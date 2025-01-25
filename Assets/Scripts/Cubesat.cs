@@ -60,6 +60,9 @@ public class Cubesat : MonoBehaviour
     public float headTurnSpeed = 180;
     public Transform currentLookTarget;
 
+    public AudioClip[] talkingSamples;
+    private bool isPlaying = false;
+
 
     public bool waitingForConfirm;
     [Space]
@@ -168,11 +171,21 @@ public class Cubesat : MonoBehaviour
         }
         Debug.Log(Time.time - talkStart);
       
+        if (!step.voiceline)
+        {
+            StartRandomPlayback();
+        }
+        
         while (Time.time - talkStart - 1 < (step.dialog.Length / step.charactersPerSecond))
         {
             Debug.Log("Dialog length: " + (step.dialog.Length / step.charactersPerSecond));
             AnimateText(step.dialog, step.charactersPerSecond, Time.time - talkStart);
             yield return null;
+        }
+
+        if (!step.voiceline)
+        {
+            StopRandomPlayback();
         }
 
         text.text = step.dialog;
@@ -210,5 +223,45 @@ public class Cubesat : MonoBehaviour
     {
         Debug.Log("printing chars" + currentTime * charactersPerSecond + " dialog time: " + (currentTime / charactersPerSecond));
         text.text = dialog.Substring(0, (int)Mathf.Min( (currentTime * charactersPerSecond), dialog.Length));
+    }
+
+    public void StartRandomPlayback()
+    {
+        if (!isPlaying)
+        {
+            isPlaying = true;
+            StartCoroutine(PlayRandomClips());
+        }
+    }
+
+    public void StopRandomPlayback()
+    {
+        isPlaying = false;
+        if (AudioSource.isPlaying)
+        {
+            AudioSource.Stop();
+        }
+    }
+
+    private IEnumerator PlayRandomClips()
+    {
+        while (isPlaying)
+        {
+            if (talkingSamples.Length > 0)
+            {
+                // Choose a random clip
+                AudioClip randomClip = talkingSamples[UnityEngine.Random.Range(0, talkingSamples.Length)];
+                AudioSource.clip = randomClip;
+                AudioSource.Play();
+
+                // Wait for the clip to finish before playing the next
+                yield return new WaitForSeconds(randomClip.length);
+            }
+            else
+            {
+                Debug.LogWarning("No audio clips assigned!");
+                yield break; // Exit the coroutine if there are no clips
+            }
+        }
     }
 }
