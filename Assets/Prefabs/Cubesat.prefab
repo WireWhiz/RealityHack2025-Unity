@@ -51,6 +51,17 @@ MonoBehaviour:
   text: {fileID: 8647872074894367940}
   headTurnSpeed: 180
   currentLookTarget: {fileID: 0}
+  talkingSamples:
+  - {fileID: 8300000, guid: 6cb20019c572c41c2913377c29a059f5, type: 3}
+  - {fileID: 8300000, guid: cf7f0d88b1efc43868380b3361cc9b5b, type: 3}
+  - {fileID: 8300000, guid: 48e7ee6cc34514e208f3aa7ffa5224ce, type: 3}
+  - {fileID: 8300000, guid: c01ac1085093944ca9c4efee580512fb, type: 3}
+  - {fileID: 8300000, guid: 41079024985134e07b9426ff65e35767, type: 3}
+  - {fileID: 8300000, guid: f84513979842f4f7286376eaa2a72d3c, type: 3}
+  - {fileID: 8300000, guid: 3d11242a6e1524e2a9010adc4e6ed703, type: 3}
+  - {fileID: 8300000, guid: 3a2956a8b130f49b3b91bf4d31eec8bd, type: 3}
+  - {fileID: 8300000, guid: 82097468ced6041f5935d621e5a9856e, type: 3}
+  - {fileID: 8300000, guid: 995808fa48aee4a15a3281a2c41396f1, type: 3}
   waitingForConfirm: 0
   dialogPaths:
   - pathName: path one
