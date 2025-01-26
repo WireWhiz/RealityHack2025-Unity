@@ -16,6 +16,9 @@ public class GameController : MonoBehaviour
     bool isBuddyDeploying = false;
     Coroutine buddyDeployCoroutine;
 
+    [SerializeField]
+    GameObject attachmentHands;
+
     Cubesat cutesat;
 
 	private void Awake()
@@ -74,5 +77,7 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(buddyEmergeTime);
 
         buddyDoor.Close();
+
+        attachmentHands.SetActive(true);
     }
 }
