@@ -155,10 +155,10 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.60828614, b: 0, a: 0.5019608}
+    - _BaseColor: {r: 1, g: 0.60784316, b: 0, a: 0.5019608}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EdgeGlowThickness: {r: 0.02, g: 0.04, b: 0, a: 0}
-    - _EmissionColor: {r: 23.968628, g: 1.7568628, b: 0, a: 1}
+    - _EmissionColor: {r: 11.984314, g: 0.8784314, b: 0, a: 1}
     - _GlowStrengthMinMax: {r: 0, g: 0.25, b: 0, a: 0}
     - _HexagonStrengthMinMax: {r: 0, g: 1, b: 0, a: 0}
     - _Hexagon_Cloud_Direction: {r: -1, g: -0.5, b: 0, a: 0}
