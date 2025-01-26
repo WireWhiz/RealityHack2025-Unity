@@ -53,7 +53,9 @@ public class Cubesat : MonoBehaviour
     public Rigidbody rb;
     public GameObject dialogBox;
     public float deadzone = 0.1f;
+    public float angularDeadzone = 10;
     public float acceleration = 20;
+    public float angularAcceleration = 360;
     public float maxSpeed = 10;
     public float maxAngularSpeed = 360;
     [Space]
@@ -103,10 +105,8 @@ public class Cubesat : MonoBehaviour
             targetRot = Quaternion.LookRotation(currentLookTarget.position - transform.position);
 
         rb.AddForce(CalcForceVec(targetPos, rb.position, rb.velocity, maxSpeed, acceleration, deadzone), ForceMode.Acceleration);
-        rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRot, maxAngularSpeed * Time.fixedDeltaTime));
-
-        rb.AddTorque(-rb.angularVelocity * 0.5f, ForceMode.Acceleration);
-    
+        //rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRot, maxAngularSpeed * Time.fixedDeltaTime));
+        ApplyTorque();
     
         float speed = rb.velocity.magnitude;
 
@@ -128,6 +128,31 @@ public class Cubesat : MonoBehaviour
                 levitateIsPlaying = false;
             }
         }
+    }
+
+    void ApplyTorque()
+    {
+        Vector3 v = rb.angularVelocity;
+
+        Vector3 componentsV = new Vector3 {
+            x = Vector3.Dot(rb.rotation * Vector3.right, v), 
+            y = Vector3.Dot(rb.rotation * Vector3.up, v), 
+            z = Vector3.Dot(rb.rotation * Vector3.forward, v) 
+        } * Mathf.Rad2Deg;
+
+        Vector3 from = Vector3.zero;//rb.rotation.eulerAngles;
+        Vector3 to = (Quaternion.Inverse(rb.rotation) * targetRot).eulerAngles; // targetRot.eulerAngles;
+        Vector3 posV = new Vector3
+        {
+            x = Mathf.DeltaAngle(from.x, to.x),
+            y = Mathf.DeltaAngle(from.y, to.y),
+            z = Mathf.DeltaAngle(from.z, to.z),
+        };
+        Debug.Log($"posV {posV}, v: {componentsV}");
+
+        Vector3 componentsA = CalcForceVec(posV, Vector3.zero, componentsV, maxAngularSpeed, angularAcceleration, angularDeadzone);
+
+        rb.AddTorque(transform.right * componentsA.x + transform.up * componentsA.y + transform.forward * componentsA.z, ForceMode.Acceleration);
     }
 
     Vector3 CalcForceVec(Vector3 targetPos, Vector3 currentPos, Vector3 currentVelocity, float maxSpeed, float maxAcceleration, float deadzone)
