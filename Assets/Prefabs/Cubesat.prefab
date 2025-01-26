@@ -79,14 +79,13 @@ MonoBehaviour:
   maxVolume: 1
   waitingForConfirm: 0
   dialogPaths:
-  - pathName: path one
+  - pathName: emerge
     steps:
-    - dialog: 'Hello, I''m allive! Hello, I''m allive! Hello, I''m allive! Hello,
-        I''m allive! Hello, I''m allive! Hello, I''m allive! Hello, I''m allive! '
+    - dialog: 
       parkPos: {fileID: 0}
       lookTarget: {fileID: 0}
       moveWhileTalking: 0
-      charactersPerSecond: 10
+      charactersPerSecond: 0
       movespeed: 3
       voiceline: {fileID: 0}
       waitForConfirm: 0
@@ -99,28 +98,11 @@ MonoBehaviour:
       onDialogEnd:
         m_PersistentCalls:
           m_Calls: []
-    - dialog: Now I'm over here!
+    - dialog: 
       parkPos: {fileID: 0}
       lookTarget: {fileID: 0}
       moveWhileTalking: 0
-      charactersPerSecond: 10
-      movespeed: 3
-      voiceline: {fileID: 0}
-      waitForConfirm: 0
-      onWaitingForConfirm:
-        m_PersistentCalls:
-          m_Calls: []
-      onDialogBegin:
-        m_PersistentCalls:
-          m_Calls: []
-      onDialogEnd:
-        m_PersistentCalls:
-          m_Calls: []
-    - dialog: Now I'm talking while moving!
-      parkPos: {fileID: 0}
-      lookTarget: {fileID: 0}
-      moveWhileTalking: 1
-      charactersPerSecond: 10
+      charactersPerSecond: 0
       movespeed: 3
       voiceline: {fileID: 0}
       waitForConfirm: 0
@@ -136,13 +118,8 @@ MonoBehaviour:
     onDialogEnd:
       m_PersistentCalls:
         m_Calls: []
-  - pathName: path two
-    steps: []
-    onDialogEnd:
-      m_PersistentCalls:
-        m_Calls: []
-  targetPos: {x: 0, y: 0, z: 0}
-  targetRot: {x: 0, y: 0, z: 0, w: 0}
+  targetPos: {x: -0.632, y: 0.9055, z: -1.3739}
+  targetRot: {x: 0, y: 0.36450303, z: 0, w: 0.9312022}
 --- !u!54 &4830730243427092079
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -314,7 +291,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2444256941912824060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 16}
+  m_LocalPosition: {x: 0, y: 0, z: -24}
   m_LocalScale: {x: 1899.12, y: 810.9925, z: 919.4926}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -353,7 +330,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f8cf8b37352899d42a2033aab3722b2d, type: 2}
+  - {fileID: 2100000, guid: 3f4ecf1c8c21a14468377ec55d1b25b9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -422,7 +399,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6094303031904030017}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -430,7 +407,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0, y: 0}
   m_SizeDelta: {x: 595.1, y: 49}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6480641216025743712
@@ -493,7 +470,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 0
-  m_fontSizeMax: 199.96
+  m_fontSizeMax: 120.99
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -524,7 +501,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 139.39, z: 0, w: 137.69}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -558,16 +535,16 @@ RectTransform:
   m_GameObject: {fileID: 7859506824356399991}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
+  m_LocalScale: {x: 0.0005, y: 0.0005, z: 0.0005}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9219798345280657334}
   - {fileID: 629298458359862692}
+  - {fileID: 9219798345280657334}
   m_Father: {fileID: 726417393958579089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.704}
+  m_AnchoredPosition: {x: 0, y: 0.433}
   m_SizeDelta: {x: 1000, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3099731181697076530
