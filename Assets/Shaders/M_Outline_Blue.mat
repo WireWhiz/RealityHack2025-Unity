@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Outline
+  m_Name: M_Outline_Blue
   m_Shader: {fileID: -6465566751694194690, guid: 08c1e7af43c0f4f478281dd3c30091e7,
     type: 3}
   m_Parent: {fileID: 0}
@@ -57,5 +57,5 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 0, g: 0.9607843, b: 0.21017982, a: 0}
+    - _Color: {r: 0, g: 0.9607843, b: 0.9339395, a: 0}
   m_BuildTextureStacks: []
