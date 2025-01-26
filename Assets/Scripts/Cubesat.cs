@@ -51,6 +51,7 @@ public class Cubesat : MonoBehaviour
     }
 
     public Rigidbody rb;
+    public GameObject dialogBox;
     public float deadzone = 0.1f;
     public float acceleration = 20;
     public float maxSpeed = 10;
@@ -89,11 +90,14 @@ public class Cubesat : MonoBehaviour
     public void Start()
     {
         waitingForConfirm = false;
+        targetPos = transform.position;
+        targetRot = transform.rotation;
     }
 
     public void FixedUpdate()
     {
-        if(currentPosTarget) 
+        dialogBox.SetActive(text.text.Length > 0);
+        if (currentPosTarget) 
             targetPos = currentPosTarget.position;
         if (currentLookTarget)
             targetRot = Quaternion.LookRotation(currentLookTarget.position - transform.position);

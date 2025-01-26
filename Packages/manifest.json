@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.openai.unity": "8.5.0",
     "com.ultraleap.dependencytoolkit": "1.0.0-pre.2",
     "com.ultraleap.tracking": "7.2.0",
     "com.ultraleap.tracking.preview": "7.2.0",
@@ -21,6 +22,7 @@
     "com.unity.xr.legacyinputhelpers": "2.1.11",
     "com.unity.xr.management": "4.5.0",
     "com.unity.xr.openxr": "1.14.0",
+    "com.whisper.unity": "https://github.com/Macoron/whisper.unity.git?path=/Packages/com.whisper.unity",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
@@ -59,6 +61,14 @@
       "url": "https://package.openupm.com",
       "scopes": [
         "com.ultraleap"
+      ]
+    },
+    {
+      "name": "OpenUPM",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.openai",
+        "com.utilities"
       ]
     }
   ]
