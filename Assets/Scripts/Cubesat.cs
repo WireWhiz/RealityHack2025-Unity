@@ -148,7 +148,6 @@ public class Cubesat : MonoBehaviour
             y = Mathf.DeltaAngle(from.y, to.y),
             z = Mathf.DeltaAngle(from.z, to.z),
         };
-        Debug.Log($"posV {posV}, v: {componentsV}");
 
         Vector3 componentsA = CalcForceVec(posV, Vector3.zero, componentsV, maxAngularSpeed, angularAcceleration, angularDeadzone);
 

@@ -8,25 +8,52 @@ using Whisper.Utils;
 
 public class AsrLogic : MonoBehaviour
 {
-    public GuessGameUI ui;
     public ImageGenAI genAi;
     public WhisperManager whisper;
     public MicrophoneRecord microphone;
+    public Cubesat cubesat;
+    public Transform parkPos;
     private readonly List<Message> _msgs = new();
+
+
+    private bool _isRecordingAudio;
+    private Cubesat.DialogPath DialogPath;
+    private Cubesat.DialogStep DialogStep;
+
 
     private void Awake()
     {
-        ui.OnTextInput += OnUsersInputTools;
         genAi.OnImageGenerated += OnImageGenerate;
-        ui.OnAudioStarted += () => microphone.StartRecord();
-        ui.OnAudioSubmitted += () => microphone.StopRecord();
         microphone.OnRecordStop += OnUsersAudio;
+        cubesat = Object.FindAnyObjectByType<Cubesat>();
     }
+
+    public void DisplayDialog(string dialog)
+    {
+        DialogStep.dialog = dialog;
+        cubesat.StartDialog(DialogPath.pathName);
+    }
+
+
+    public void OnMicButtonClicked()
+    {
+        _isRecordingAudio = !_isRecordingAudio;
+        if (_isRecordingAudio)
+        {
+            microphone.StartRecord();
+        }
+        else
+        {
+            microphone.StopRecord();
+        }
+    }
+
 
     private async void OnUsersAudio(AudioChunk audio)
     {
+        DisplayDialog("Computing...");
         var res = await whisper.GetTextAsync(audio.Data, audio.Frequency, audio.Channels);
-        ui.ShowInputText(res.Result);
+        OnUsersInputTools(res.Result);
     }
 
     private void Start()
@@ -35,11 +62,26 @@ public class AsrLogic : MonoBehaviour
            Role.System,
            "You are a robotic astronaut assistant - Cutesat." +
            "You are cute robot that is tasked with helping the player, the astronaut, with any tasks it needs like repairing the spaceship."));
+
+        DialogPath = new Cubesat.DialogPath();
+        DialogPath.pathName = "ai output";
+
+        DialogStep = new Cubesat.DialogStep();
+        DialogStep.parkPos = parkPos;
+        DialogStep.lookTarget = Camera.main.transform;
+        DialogStep.charactersPerSecond = 40;
+
+        DialogPath.steps = new()
+        {
+            DialogStep
+        };
+
+        cubesat.dialogPaths.Add(DialogPath);
     }
 
     private async void OnUsersInputTools(string usrInput)
     {
-        ui.ShowBotThinking();
+        DisplayDialog("Thinking...");
         
         _msgs.Add(new Message(Role.User, usrInput));
         
@@ -73,10 +115,10 @@ public class AsrLogic : MonoBehaviour
             return;
         }
 
-        ui.ShowOutputText(choice);
+        DisplayDialog(choice);
         
-        var tts = GetComponent<ElevenLabsAPI>();
-        StartCoroutine(tts.ConvertTextToSpeech(choice));
+        //var tts = GetComponent<ElevenLabsAPI>();
+        //StartCoroutine(tts.ConvertTextToSpeech(choice));
     }
     
     private void OnImageGenerate(Texture2D tex)
@@ -85,6 +127,7 @@ public class AsrLogic : MonoBehaviour
             new Rect(0.0f, 0.0f, tex.width, tex.height), 
             new Vector2(0.5f, 0.5f), 100.0f
         );
-        ui.ShowImage(sprite);
+        Debug.LogWarning("I turned off texture gen cause I didn't want to reimplement whatever UI");
+        //ui.ShowImage(sprite);
     }
 }
