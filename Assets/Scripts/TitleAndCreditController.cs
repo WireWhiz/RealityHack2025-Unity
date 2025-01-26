@@ -30,5 +30,6 @@ public class TitleAndCreditController : MonoBehaviour
     public void showCredits()
     {
         credits.SetActive(true);
+        creditsMusicSource.Play();
     }
 }
