@@ -8,6 +8,8 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject xrRig;
     [SerializeField] FloorDoorScript floorDoorScript;
 
+    TitleAndCreditController titleCreditsController;
+
     [SerializeField] bool debugFloorActivate;
 
     // AI buddy hello sequence vars
@@ -24,6 +26,7 @@ public class GameController : MonoBehaviour
 	private void Awake()
 	{
 		cutesat = FindObjectOfType<Cubesat>();
+        titleCreditsController = FindObjectOfType<TitleAndCreditController>();
 	}
 
 
@@ -31,6 +34,12 @@ public class GameController : MonoBehaviour
 	void Start()
     {
         
+    }
+
+    IEnumerator ShowCredits()
+    {
+        yield return new WaitForSeconds(150);
+        titleCreditsController.showCredits();
     }
 
     // Update is called once per frame
