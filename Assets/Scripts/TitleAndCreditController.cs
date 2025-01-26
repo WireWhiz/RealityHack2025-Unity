@@ -6,7 +6,9 @@ public class TitleAndCreditController : MonoBehaviour
 {
     public GameObject title;
     public GameObject credits;
-    public AudioSource audioSource;
+    public AudioSource titleMusicSource;
+    public AudioSource creditsMusicSource;
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +29,6 @@ public class TitleAndCreditController : MonoBehaviour
 
     public void showCredits()
     {
-
+        credits.SetActive(true);
     }
 }

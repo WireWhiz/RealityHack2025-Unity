@@ -53,7 +53,9 @@ MonoBehaviour:
   rb: {fileID: 4830730243427092079}
   dialogBox: {fileID: 7859506824356399991}
   deadzone: 0.1
+  angularDeadzone: 10
   acceleration: 20
+  angularAcceleration: 360
   maxSpeed: 10
   maxAngularSpeed: 360
   AudioSource: {fileID: 613275312345170921}
@@ -635,6 +637,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 726417393958579089}
     m_Modifications:
+    - target: {fileID: 1208905782642532345, guid: 958a46fe214fc4bf587c6394b7a5b2f7,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.349
+      objectReference: {fileID: 0}
     - target: {fileID: 1691506784798558222, guid: 958a46fe214fc4bf587c6394b7a5b2f7,
         type: 3}
       propertyPath: m_Name
