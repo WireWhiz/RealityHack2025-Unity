@@ -29,17 +29,19 @@ public class GuessGameUI : MonoBehaviour
         input.onSubmit.AddListener(OnSubmitEvent);
     }
 
-    private void OnMicButtonClicked()
+    public void OnMicButtonClicked()
     {
         _isRecordingAudio = !_isRecordingAudio;
         if (_isRecordingAudio)
         {
-            micButtonImage.sprite = micButtonRecording;
+            if(micButtonImage)
+                micButtonImage.sprite = micButtonRecording;
             OnAudioStarted?.Invoke();
         }
         else
         {
-            micButtonImage.sprite = micButtonReady;
+            if (micButtonImage)
+                micButtonImage.sprite = micButtonReady;
             OnAudioSubmitted?.Invoke();
         }
     }
@@ -63,19 +65,22 @@ public class GuessGameUI : MonoBehaviour
 
     public void ShowInputText(string usrInput)
     {
-        input.text = usrInput;
+        //input.text = usrInput;
         OnSubmitEvent(usrInput);
     }
 
     public void ShowImage(Sprite image)
     {
         ShowOutput(false);
-        outputImage.sprite = image;
+        if (outputImage)
+        {
+            outputImage.sprite = image;
+        }
     }
 
     private void ShowOutput(bool showText)
     {
-        outputScrollRect.gameObject.SetActive(showText);
-        outputImageRect.gameObject.SetActive(!showText);
+        //outputScrollRect.gameObject.SetActive(showText);
+        //outputImageRect.gameObject.SetActive(!showText);
     }
 }
