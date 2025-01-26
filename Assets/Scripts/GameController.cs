@@ -16,9 +16,16 @@ public class GameController : MonoBehaviour
     bool isBuddyDeploying = false;
     Coroutine buddyDeployCoroutine;
 
+    Cubesat cubesat;
 
-    // Start is called before the first frame update
-    void Start()
+	private void Awake()
+	{
+        cubesat = FindObjectOfType<Cubesat>();
+	}
+
+
+	// Start is called before the first frame update
+	void Start()
     {
         
     }
