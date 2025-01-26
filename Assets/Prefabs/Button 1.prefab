@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b02e2f8ae628ac4f9faca951fe12db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useHover: 1
+  useHover: 0
   usePrimaryHover: 0
-  defaultColor: {r: 0.10980393, g: 0.64705884, b: 0.21176472, a: 1}
+  defaultColor: {r: 1, g: 0.015686275, b: 0.36862746, a: 1}
   suspendedColor: {r: 1, g: 0, b: 0, a: 1}
   hoverColor: {r: 0.06666667, g: 0.25882354, b: 1, a: 1}
   primaryHoverColor: {r: 0.62624454, g: 0, b: 1, a: 1}
@@ -282,7 +282,7 @@ MonoBehaviour:
   damperValue: 0
   maxForceValue: 5
   bouncinessValue: 0
-  _buttonTravelDistance: 0.0056000007
+  _buttonTravelDistance: 0.005600002
   _buttonTravelOffset: 0.65
   _canBePressedByObjects: 0
   _pressableObject: {fileID: 1741164738042335568}
