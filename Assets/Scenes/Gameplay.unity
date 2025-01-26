@@ -657,7 +657,7 @@ Camera:
   m_GameObject: {fileID: 112200312}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.16862746, g: 0.16862746, b: 0.16862746, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -679,8 +679,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
-  far clip plane: 500
+  near clip plane: 0.03
+  far clip plane: 7605
   field of view: 105.4
   orthographic: 0
   orthographic size: 5
@@ -14941,7 +14941,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 6e-44, z: 3.5e-44, w: 1.3544e-41}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 6e-45, z: 5.817e-42, w: 1.37753e-40}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -17231,6 +17231,11 @@ PrefabInstance:
     - target: {fileID: 94966008886804305, guid: c55930d782899a54b8a075356072bed6,
         type: 3}
       propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 94966008886804305, guid: c55930d782899a54b8a075356072bed6,
+        type: 3}
+      propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 94966008886804305, guid: c55930d782899a54b8a075356072bed6,
@@ -41055,7 +41060,7 @@ Camera:
   m_GameObject: {fileID: 256273701197430814}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.16862746, g: 0.16862746, b: 0.16862746, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -41078,7 +41083,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.03
-  far clip plane: 6437.36
+  far clip plane: 7605
   field of view: 60
   orthographic: 0
   orthographic size: 5

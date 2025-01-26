@@ -24,7 +24,7 @@ public class TitleAndCreditController : MonoBehaviour
 
     public void StartAscent()
     {
-
+        title.SetActive(false);
     }
 
     public void showCredits()
