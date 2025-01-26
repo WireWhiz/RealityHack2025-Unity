@@ -16,11 +16,11 @@ public class GameController : MonoBehaviour
     bool isBuddyDeploying = false;
     Coroutine buddyDeployCoroutine;
 
-    Cubesat cubesat;
+    Cubesat cutesat;
 
 	private void Awake()
 	{
-        cubesat = FindObjectOfType<Cubesat>();
+		cutesat = FindObjectOfType<Cubesat>();
 	}
 
 
@@ -64,10 +64,12 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(buddyDoorWaitTime);
 
         buddyDeployButtonContainer.SetActive(false);
+        
 
         // get our buddy to move out of the door
 
         const float buddyEmergeTime = 1;
+        cutesat.StartDialog("emerge");
 
         yield return new WaitForSeconds(buddyEmergeTime);
 

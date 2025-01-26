@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3998613554664026205}
   - component: {fileID: 4830730243427092079}
   - component: {fileID: 613275312345170921}
+  - component: {fileID: 7251191501480773390}
   m_Layer: 0
   m_Name: Cubesat
   m_TagString: Untagged
@@ -263,6 +264,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!135 &7251191501480773390
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965636070683977064}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.14
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2444256941912824060
 GameObject:
   m_ObjectHideFlags: 0
