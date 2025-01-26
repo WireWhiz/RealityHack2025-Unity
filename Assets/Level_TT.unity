@@ -625,9 +625,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: f53192ede3a4a4cd9b99b36ffa345aa9,
         type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: f53192ede3a4a4cd9b99b36ffa345aa9,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0f1cd64545cdd2e48a5445a66fee9b3d, type: 2}
+    - target: {fileID: -7511558181221131132, guid: f53192ede3a4a4cd9b99b36ffa345aa9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a8026232078e9641885146709ab0e47, type: 2}
     - target: {fileID: 919132149155446097, guid: f53192ede3a4a4cd9b99b36ffa345aa9,
         type: 3}
       propertyPath: m_Name
@@ -701,6 +711,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Robotset_Cute
       objectReference: {fileID: 0}
+    - target: {fileID: 8947181576013225548, guid: ad9c349a39b743e4e8fdbc65d2e17862,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8947181576013225548, guid: ad9c349a39b743e4e8fdbc65d2e17862,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a8026232078e9641885146709ab0e47, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1500,7 +1520,7 @@ PrefabInstance:
     - target: {fileID: 4839946644450834168, guid: 55031f67b61da434eae245a6dc46490a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.011
+      value: 0.114
       objectReference: {fileID: 0}
     - target: {fileID: 5801784401473075719, guid: 55031f67b61da434eae245a6dc46490a,
         type: 3}
@@ -1552,6 +1572,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6008326407913606551, guid: 55031f67b61da434eae245a6dc46490a,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6008326407913606551, guid: 55031f67b61da434eae245a6dc46490a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a8026232078e9641885146709ab0e47, type: 2}
+    - target: {fileID: 8989286349699828958, guid: 55031f67b61da434eae245a6dc46490a,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8989286349699828958, guid: 55031f67b61da434eae245a6dc46490a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a8026232078e9641885146709ab0e47, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
