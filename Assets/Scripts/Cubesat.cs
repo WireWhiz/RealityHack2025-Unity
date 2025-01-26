@@ -104,6 +104,8 @@ public class Cubesat : MonoBehaviour
 
         rb.AddForce(CalcForceVec(targetPos, rb.position, rb.velocity, maxSpeed, acceleration, deadzone), ForceMode.Acceleration);
         rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRot, maxAngularSpeed * Time.fixedDeltaTime));
+
+        rb.AddTorque(-rb.angularVelocity * 0.5f, ForceMode.Acceleration);
     
     
         float speed = rb.velocity.magnitude;
