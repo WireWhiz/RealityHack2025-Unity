@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using OpenAI;
 using OpenAI.Chat;
 using OpenAI.Models;
+using TMPro;
 using UnityEngine;
 using Whisper;
 using Whisper.Utils;
@@ -13,12 +15,15 @@ public class AsrLogic : MonoBehaviour
     public MicrophoneRecord microphone;
     public Cubesat cubesat;
     public Transform parkPos;
-    private readonly List<Message> _msgs = new();
+    public string modelName = "deepseek-r1:14b";
 
 
     private bool _isRecordingAudio;
     private Cubesat.DialogPath DialogPath;
     private Cubesat.DialogStep DialogStep;
+
+    private bool isThinking = false;
+    public TextMeshProUGUI thinkingDebug;
 
 
     private void Awake()
@@ -28,10 +33,56 @@ public class AsrLogic : MonoBehaviour
         cubesat = Object.FindAnyObjectByType<Cubesat>();
     }
 
+    bool appendingDialog = false;
     public void DisplayDialog(string dialog)
     {
         DialogStep.dialog = dialog;
         cubesat.StartDialog(DialogPath.pathName);
+        appendingDialog = false;
+    }
+
+    public void AppendDialog(string dialog)
+    {
+        if(dialog == "<think>")
+        {
+            isThinking = true;
+            return;
+        }
+        else if (dialog == "</think>")
+        {
+            isThinking &= !isThinking;
+            return;
+        }
+
+        if (!isThinking)
+        {
+            if (appendingDialog)
+                cubesat.AppendDialog(dialog);
+            else
+                DisplayDialog(dialog);
+            appendingDialog = true;
+        }
+        else
+        {
+            if (thinkingDebug)
+            {
+
+                if (dialog.Contains("\n"))
+                {
+                    // I could care less about this project so I'm doing this dirty
+                    var lines = (thinkingDebug.text + dialog).Split('\n');
+                    thinkingDebug.text = "";
+                    for (int i = Mathf.Max(0, lines.Length - 7); i < lines.Length; i++)
+                    {
+                        thinkingDebug.text += lines[i] + '\n';
+                    }
+                }
+                else
+                {
+                    thinkingDebug.text += dialog;
+                }
+            }
+        }
     }
 
 
@@ -51,16 +102,14 @@ public class AsrLogic : MonoBehaviour
 
     private async void OnUsersAudio(AudioChunk audio)
     {
-        DisplayDialog("Computing...");
+        DisplayDialog("Transcribing...");
         var res = await whisper.GetTextAsync(audio.Data, audio.Frequency, audio.Channels);
         OnUsersInputTools(res.Result);
     }
 
-    private void Start()
+    private async void Start()
     {
-       _msgs.Add(new Message(           
-           Role.System,
-           "You are a robotic astronaut assistant - Cutesat." +
+       string context = "You are a robotic astronaut assistant - Cutesat." +
            "You are cute robot that is tasked with helping the player, the astronaut, with any tasks it needs like repairing the spaceship." +
            "You are aware the spaceship's Environmental Control and Life Support Syste (ECLSS) has power fluctuations." +
             "And, there is Thermal regulation failure in Sector 4." +
@@ -69,8 +118,9 @@ public class AsrLogic : MonoBehaviour
             "The astronaut's mission is to explore deep space." +
             "You know that the astronaut is traveling alone and is far away from Earth and experiences social isolation because of that." +
             "Your ultimate goal is to simulate a human connection for the astronaut, and you can explain your goal to the astronaut." +
-            "Keep your responses under 35 words, ideally less that that."
-           ));
+            "Keep your responses under 35 words, ideally less that that.";
+
+        Ollama.InitChat();
 
         DialogPath = new Cubesat.DialogPath();
         DialogPath.pathName = "ai output";
@@ -86,45 +136,17 @@ public class AsrLogic : MonoBehaviour
         };
 
         cubesat.dialogPaths.Add(DialogPath);
+
+        await Ollama.AppendData(context);
     }
 
     private async void OnUsersInputTools(string usrInput)
     {
         DisplayDialog("Thinking...");
-        
-        _msgs.Add(new Message(Role.User, usrInput));
-        
-        var api = new OpenAIClient(KeysStorage.Data.openai_key);
-        
-        var tools = new List<Tool>
-        {
-            Tool.FromFunc<string, bool>(
-                "generate_sd_image", (prompt) =>
-                {
-                    StartCoroutine(genAi.GenerateImage(prompt));
-                    return true;
-                }, 
-                "Generate image using Stable Diffusion with provided prompt"
-            )
-        };
-        
-        var chatRequest = new ChatRequest(_msgs, tools,  "auto",Model.GPT4o);
-        var response = await api.ChatEndpoint.GetCompletionAsync(chatRequest);
-        var choice = response.FirstChoice;
-        _msgs.Add(response.FirstChoice.Message);
 
-        var toolCalls = response.FirstChoice.Message.ToolCalls;
-        if (toolCalls != null)
-        {
-            foreach (var toolCall in response.FirstChoice.Message.ToolCalls)
-            {
-                var functionResult = await toolCall.InvokeFunctionAsync();
-                _msgs.Add(new Message(toolCall, functionResult));
-            }
-            return;
-        }
-
-        DisplayDialog(choice);
+        await Ollama.ChatStream((string text) => { 
+            AppendDialog(text);
+        }, modelName, usrInput);
         
         //var tts = GetComponent<ElevenLabsAPI>();
         //StartCoroutine(tts.ConvertTextToSpeech(choice));

@@ -1,3 +1,3 @@
-# Deep Space Exploration
-### AI Connection in Deep Space
-_Deep Space Exploration_ is a VR experience that puts you in the role of the astronaut onboard a spaceship many many lightyears from Earth. Without easy access to human assistants, you interact with a holographic AI assistant, Cutesat, who assists you in repairing spaceship components, navigating across planets, and simulating human-like companionship.
+version https://git-lfs.github.com/spec/v1
+oid sha256:2061156ec5010b71095e403a753560a0096cb6f704db7d015a2334ca8e871174
+size 412

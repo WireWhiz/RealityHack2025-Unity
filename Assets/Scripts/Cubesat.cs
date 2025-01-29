@@ -89,6 +89,10 @@ public class Cubesat : MonoBehaviour
 
     public Vector3 targetPos;
     public Quaternion targetRot;
+
+    private float talkStart;
+    private string currentDialog = "";
+    private float cps; // Chars per second
     public void Start()
     {
         waitingForConfirm = false;
@@ -107,7 +111,9 @@ public class Cubesat : MonoBehaviour
         rb.AddForce(CalcForceVec(targetPos, rb.position, rb.velocity, maxSpeed, acceleration, deadzone), ForceMode.Acceleration);
         //rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRot, maxAngularSpeed * Time.fixedDeltaTime));
         ApplyTorque();
-    
+
+        AnimateText(currentDialog, cps, Time.time - talkStart);
+
         float speed = rb.velocity.magnitude;
 
         if (speed > 0.4f)
@@ -214,8 +220,11 @@ public class Cubesat : MonoBehaviour
 
         // Start talking if not waiting on move
         float talkStart = Time.time;
+        currentDialog = "";
+        cps = step.charactersPerSecond;
         if(step.moveWhileTalking)
         {
+            currentDialog = step.dialog;
             if(step.voiceline)
             {
                 AudioSource.clip = step.voiceline;
@@ -232,11 +241,6 @@ public class Cubesat : MonoBehaviour
             {
                 // Smooth damp later
 
-                if (step.moveWhileTalking)
-                {
-                    AnimateText(step.dialog, step.charactersPerSecond, Time.time - talkStart);
-                }
-
                 yield return null;
             }
             while ((transform.position - step.parkPos.transform.position).magnitude > 0.05f);
@@ -247,10 +251,6 @@ public class Cubesat : MonoBehaviour
         {
             while (Quaternion.Angle(transform.rotation,  Quaternion.LookRotation(step.lookTarget.position - transform.position)) > 2f)
             {
-                if (step.moveWhileTalking)
-                {
-                    AnimateText(step.dialog, step.charactersPerSecond, Time.time - talkStart);
-                }
                 yield return null;
             }
         }
@@ -259,6 +259,7 @@ public class Cubesat : MonoBehaviour
         if (!step.moveWhileTalking)
         {
             talkStart = Time.time;
+            currentDialog = step.dialog;
             if (step.voiceline)
             {
                 AudioSource.clip = step.voiceline;
@@ -274,7 +275,6 @@ public class Cubesat : MonoBehaviour
 
         while (Time.time - talkStart - 1 < (step.dialog.Length / step.charactersPerSecond))
         {
-            AnimateText(step.dialog, step.charactersPerSecond, Time.time - talkStart);
             yield return null;
         }
 
@@ -298,6 +298,19 @@ public class Cubesat : MonoBehaviour
         step.onDialogEnd?.Invoke();
     }
 
+    public void AppendDialog(string text)
+    {
+        float currentDialogLenth = (currentDialog.Length / cps);
+        if(Time.time - talkStart > currentDialogLenth)
+            talkStart = Time.time - currentDialogLenth;
+        currentDialog += text;
+    }
+
+    void AnimateText(string dialog, float charactersPerSecond, float currentTime)
+    {
+        text.text = dialog.Substring(0, (int)Mathf.Min((currentTime * charactersPerSecond), dialog.Length));
+    }
+
     IEnumerator ExecuteDialogPath(DialogPath path)
     {
 
@@ -313,11 +326,6 @@ public class Cubesat : MonoBehaviour
     }
 
 
-
-    void AnimateText(string dialog, float charactersPerSecond, float currentTime)
-    {
-        text.text = dialog.Substring(0, (int)Mathf.Min( (currentTime * charactersPerSecond), dialog.Length));
-    }
 
     public void StartRandomPlayback()
     {
